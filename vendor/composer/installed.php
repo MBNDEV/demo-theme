@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '850bfa9b997539b6f2f114e4b03c6c495ff06ef3',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '850bfa9b997539b6f2f114e4b03c6c495ff06ef3',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -27,6 +27,15 @@
             'install_path' => __DIR__ . '/../dealerdirect/phpcodesniffer-composer-installer',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'htmlburger/carbon-fields' => array(
+            'pretty_version' => 'v3.6.9',
+            'version' => '3.6.9.0',
+            'reference' => 'f82e80e3e3469d6e86cc17a8950b918ad448a059',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../htmlburger/carbon-fields',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'phpcsstandards/phpcsextra' => array(
             'pretty_version' => '1.5.0',
