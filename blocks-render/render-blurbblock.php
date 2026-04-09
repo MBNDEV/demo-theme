@@ -1,16 +1,8 @@
 <?php
 /**
- * Blurb block template.
+ * Blurb block — markup output.
  *
- * Usage:
- * get_template_part(
- *   'blocks/blurb',
- *   null,
- *   array(
- *     'image_id' => 0,
- *     'text'     => 'Feature blurb text goes here.',
- *   )
- * );
+ * Loaded by {@see \CustomTheme\Blocks\BlurbBlock::render()}.
  *
  * @package CustomTheme
  */

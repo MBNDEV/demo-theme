@@ -7,6 +7,11 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'CustomTheme\\Blocks\\AboveTheFoldBlock' => $baseDir . '/blocks/class-abovethefoldblock.php',
+    'CustomTheme\\Blocks\\Abstract_Block' => $baseDir . '/blocks/class-abstract-block.php',
+    'CustomTheme\\Blocks\\BlurbBlock' => $baseDir . '/blocks/class-blurbblock.php',
+    'CustomTheme\\Containers\\Abstract_Container' => $baseDir . '/containers/class-abstract-container.php',
+    'CustomTheme\\Containers\\SampleThemeOptionsContainer' => $baseDir . '/containers/class-samplethemeoptionscontainer.php',
     'PHPCSUtils\\AbstractSniffs\\AbstractArrayDeclarationSniff' => $vendorDir . '/phpcsstandards/phpcsutils/PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php',
     'PHPCSUtils\\BackCompat\\BCFile' => $vendorDir . '/phpcsstandards/phpcsutils/PHPCSUtils/BackCompat/BCFile.php',
     'PHPCSUtils\\BackCompat\\BCTokens' => $vendorDir . '/phpcsstandards/phpcsutils/PHPCSUtils/BackCompat/BCTokens.php',

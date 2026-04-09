@@ -1,19 +1,8 @@
 <?php
 /**
- * Above the fold content block template.
+ * Above the fold block — markup output.
  *
- * Usage:
- * get_template_part(
- *   'blocks/above-the-fold-content',
- *   null,
- *   array(
- *     'eyebrow'     => 'Custom WordPress Development',
- *     'title'       => 'WordPress Custom Fields Library',
- *     'description' => 'Create and manage flexible field groups.',
- *     'button_text' => 'Get Started',
- *     'button_url'  => home_url( '/get-started/' ),
- *   )
- * );
+ * Loaded by {@see \CustomTheme\Blocks\AboveTheFoldBlock::render()}.
  *
  * @package CustomTheme
  */
