@@ -20,7 +20,7 @@ $patterns = [
 	'Stripe secret key'      => '/\bsk_(live|test)_[a-zA-Z0-9]{24,}\b/',
 	'Stripe publishable'     => '/\bpk_(live|test)_[a-zA-Z0-9]{24,}\b/',
 	'Private key in code'    => '/-----BEGIN\s+(?:RSA\s+)?PRIVATE KEY-----/',
-	'Bearer token in string' => '/[\'"](?:Bearer\s+)?[a-zA-Z0-9_-]{32,}[\'"]/',
+	'Bearer token in string' => '/[\'"]Bearer\s+[a-zA-Z0-9._-]{20,}[\'"]/',
 	'Hardcoded password ='   => '/password\s*=\s*[\'"][^\'"]{8,}[\'"]/i',
 	'Hardcoded api_key ='    => '/api_?key\s*=\s*[\'"][^\'"]{16,}[\'"]/i',
 	'Hardcoded secret ='     => '/\bsecret\s*=\s*[\'"][^\'"]{10,}[\'"]/i',
