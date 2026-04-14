@@ -36,7 +36,7 @@ $section_classes = array(
 if ( $fullwidth_section ) {
   $section_classes[] = 'w-full';
 } else {
-  $section_classes[] = 'container';
+  $section_classes[] = 'container mx-auto';
 }
 ?>
 <section
