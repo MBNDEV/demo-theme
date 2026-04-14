@@ -25,7 +25,12 @@ final class AboveTheFoldBlock extends Abstract_Block {
       ->set_icon( 'cover-image' )
       ->set_category( 'layout' )
       ->set_render_callback( array( self::class, 'render' ) )
-      ->add_fields( self::get_field_definitions() );
+      ->add_fields(
+        array_merge(
+          self::get_field_definitions(),
+          Abstract_Block::get_advanced_field_definitions()
+        )
+      );
   }
 
   /**
@@ -73,14 +78,17 @@ final class AboveTheFoldBlock extends Abstract_Block {
    * @return array<string, mixed>
    */
   private static function map_fields_to_template_args( array $fields ): array {
-    return array(
-		'eyebrow'          => $fields['crb_above_fold_eyebrow'] ?? '',
-		'title'            => $fields['crb_above_fold_title'] ?? '',
-		'description'      => $fields['crb_above_fold_description'] ?? '',
-		'button_text'      => $fields['crb_above_fold_button_text'] ?? '',
-		'button_url'       => $fields['crb_above_fold_button_url'] ?? '',
-		'background_color' => $fields['crb_above_fold_background_color'] ?? '',
-		'text_color'       => $fields['crb_above_fold_text_color'] ?? '',
+    return array_merge(
+      array(
+		  'eyebrow'          => $fields['crb_above_fold_eyebrow'] ?? '',
+		  'title'            => $fields['crb_above_fold_title'] ?? '',
+		  'description'      => $fields['crb_above_fold_description'] ?? '',
+		  'button_text'      => $fields['crb_above_fold_button_text'] ?? '',
+		  'button_url'       => $fields['crb_above_fold_button_url'] ?? '',
+		  'background_color' => $fields['crb_above_fold_background_color'] ?? '',
+		  'text_color'       => $fields['crb_above_fold_text_color'] ?? '',
+	  ),
+      Abstract_Block::map_advanced_fields_to_template_args( $fields )
     );
   }
 }

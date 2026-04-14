@@ -25,7 +25,12 @@ final class BlurbBlock extends Abstract_Block {
       ->set_icon( 'format-image' )
       ->set_category( 'layout' )
       ->set_render_callback( array( self::class, 'render' ) )
-      ->add_fields( self::get_field_definitions() );
+      ->add_fields(
+        array_merge(
+          self::get_field_definitions(),
+          Abstract_Block::get_advanced_field_definitions()
+        )
+      );
   }
 
   /**
@@ -67,11 +72,14 @@ final class BlurbBlock extends Abstract_Block {
    * @return array<string, mixed>
    */
   private static function map_fields_to_template_args( array $fields ): array {
-    return array(
-		'image_id'         => isset( $fields['crb_blurb_image'] ) ? absint( $fields['crb_blurb_image'] ) : 0,
-		'text'             => $fields['crb_blurb_text'] ?? '',
-		'background_color' => $fields['crb_blurb_background_color'] ?? '',
-		'text_color'       => $fields['crb_blurb_text_color'] ?? '',
+    return array_merge(
+      array(
+		  'image_id'         => isset( $fields['crb_blurb_image'] ) ? absint( $fields['crb_blurb_image'] ) : 0,
+		  'text'             => $fields['crb_blurb_text'] ?? '',
+		  'background_color' => $fields['crb_blurb_background_color'] ?? '',
+		  'text_color'       => $fields['crb_blurb_text_color'] ?? '',
+	  ),
+      Abstract_Block::map_advanced_fields_to_template_args( $fields )
     );
   }
 }

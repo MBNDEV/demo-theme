@@ -22,3 +22,5 @@ PucFactory::buildUpdateChecker(
 );
 
 require_once get_theme_file_path( 'carbon-loader.php' );
+require_once get_theme_file_path( 'tailwind-loader.php' );
+require_once get_theme_file_path( 'optimize.php' );
