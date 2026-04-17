@@ -2,9 +2,14 @@
 /**
  * Theme header template.
  *
+ * Site chrome: Carbon Template post Header Template (slug header-template) — block editor
+ * content. Custom HTML (Head / Before Body) from
+ * inc/includes-html-injection.php runs via hooks.
+ *
  * @package CustomTheme
  */
 
+$custom_theme_global_header_html = custom_theme_get_global_header_template_output_html();
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -17,7 +22,7 @@
 <?php wp_body_open(); ?>
 <div id="page" class="site">
 	<header id="masthead" class="site-header">
-		<?php if ( is_active_sidebar( 'header' ) ) : ?>
-			<?php dynamic_sidebar( 'header' ); ?>
+		<?php if ( '' !== $custom_theme_global_header_html ) : ?>
+			<?php echo $custom_theme_global_header_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML from the_content / blocks. ?>
 		<?php endif; ?>
 	</header>

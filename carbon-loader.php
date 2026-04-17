@@ -31,6 +31,7 @@ add_action( 'after_setup_theme', 'custom_theme_boot_carbon_fields' );
  * @param string $abstract_basename  Filename of the abstract base class file to skip.
  * @param string $parent_class       Fully qualified parent class name.
  * @param string $namespace_prefix   Namespace prefix (e.g. `CustomTheme\Blocks\`).
+ * @param string $glob_pattern       Glob relative to directory (default `class-*.php`).
  *
  * @return array<int, class-string>
  */
@@ -38,14 +39,15 @@ function custom_theme_discover_concrete_subclasses(
     string $theme_relative_dir,
     string $abstract_basename,
     string $parent_class,
-    string $namespace_prefix
+    string $namespace_prefix,
+    string $glob_pattern = 'class-*.php'
 ): array {
   if ( ! class_exists( $parent_class, true ) ) {
     return array();
   }
 
   $directory = get_theme_file_path( $theme_relative_dir );
-  $pattern   = trailingslashit( $directory ) . 'class-*.php';
+  $pattern   = trailingslashit( $directory ) . $glob_pattern;
   $files     = glob( $pattern );
 
   if ( false === $files ) {
@@ -86,9 +88,10 @@ function custom_theme_discover_concrete_subclasses(
 function custom_theme_get_block_module_classes(): array {
   return custom_theme_discover_concrete_subclasses(
     'blocks',
-    'class-abstract-block.php',
+    'block-class-abstract-block.php',
     \CustomTheme\Blocks\Abstract_Block::class,
-    'CustomTheme\\Blocks\\'
+    'CustomTheme\\Blocks\\',
+    'block-class-*.php'
   );
 }
 
@@ -100,9 +103,10 @@ function custom_theme_get_block_module_classes(): array {
 function custom_theme_get_container_module_classes(): array {
   return custom_theme_discover_concrete_subclasses(
     'containers',
-    'class-abstract-container.php',
+    'containers-class-abstract-container.php',
     \CustomTheme\Containers\Abstract_Container::class,
-    'CustomTheme\\Containers\\'
+    'CustomTheme\\Containers\\',
+    'containers-class-*.php'
   );
 }
 

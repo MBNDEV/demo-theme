@@ -2,9 +2,11 @@
 module.exports = {
   content: [
     './*.php',
+    './inc/**/*.php',
     './blocks/**/*.php',
     './blocks-render/**/*.php',
-    './template-parts/**/*.php',
+    './page-templates/**/*.php',
+    './widgets/**/*.php',
     './block-assets/**/*.css',
     './resources/**/*.css',
   ],

@@ -1,11 +1,14 @@
 <?php
 /**
- * Default theme template — required by WordPress. Handles any view without a more specific
- * template: default pages/posts (when no Page template is chosen), archives, search, etc.
- * Same blank main column + widget sidebar below as page-templates/template-blank.php.
+ * Singular views (posts, pages, carbon_template, etc.). Used when no single.php / page.php exist.
  *
  * @package CustomTheme
  */
+
+if ( is_singular( 'carbon_template' ) ) {
+  require get_theme_file_path( 'page-templates/template-single-carbon.php' );
+  return;
+}
 
 get_header();
 ?>

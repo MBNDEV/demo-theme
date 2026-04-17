@@ -11,12 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
   exit;
 }
 
-$block_args        = is_array( $args ?? null ) ? $args : array();
-$image_id          = isset( $block_args['image_id'] ) ? absint( $block_args['image_id'] ) : 0;
-$text              = isset( $block_args['text'] ) ? sanitize_text_field( $block_args['text'] ) : __( 'Feature blurb text goes here.', 'custom-theme' );
-$background_color  = isset( $block_args['background_color'] ) ? sanitize_hex_color( $block_args['background_color'] ) : '';
-$text_color        = isset( $block_args['text_color'] ) ? sanitize_hex_color( $block_args['text_color'] ) : '';
-$fullwidth_section = ! empty( $block_args['fullwidth_section'] );
+$block_args = is_array( $args ?? null ) ? $args : array();
+$image_id   = isset( $block_args['image_id'] ) ? absint( $block_args['image_id'] ) : 0;
+$text       = isset( $block_args['text'] ) ? sanitize_text_field( $block_args['text'] ) : __( 'Feature blurb text goes here.', CUSTOM_THEME_TEXT_DOMAIN );
 
 $image_html = '';
 if ( $image_id > 0 ) {
@@ -32,27 +29,9 @@ if ( $image_id > 0 ) {
   );
 }
 
-$style_vars  = '--cbb-bg:' . ( ! empty( $background_color ) ? $background_color : 'transparent' ) . ';';
-$style_vars .= '--cbb-fg:' . ( ! empty( $text_color ) ? $text_color : 'inherit' ) . ';';
-
-$section_classes = array(
-	'bg-[var(--cbb-bg,transparent)]',
-	'text-[var(--cbb-fg,inherit)]',
-	'px-4',
-	'py-8',
-	'sm:px-8',
-);
-if ( $fullwidth_section ) {
-  $section_classes[] = 'w-full';
-} else {
-  $section_classes[] = 'container';
-}
+ob_start();
 ?>
-<section
-  class="<?php echo esc_attr( implode( ' ', $section_classes ) ); ?>"
-  data-custom-theme-block="blurb"
-  style="<?php echo esc_attr( $style_vars ); ?>"
->
+<div>
   <div class="mx-auto flex max-w-3xl flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">
     <?php if ( ! empty( $image_html ) ) : ?>
       <div class="shrink-0">
@@ -61,4 +40,11 @@ if ( $fullwidth_section ) {
     <?php endif; ?>
     <p class="m-0 flex-1 text-base leading-relaxed"><?php echo esc_html( $text ); ?></p>
   </div>
-</section>
+</div>
+<?php
+$inner = ob_get_clean();
+
+$block_args['data_custom_theme_block'] = 'blurb';
+$block_args['inner_html']              = $inner;
+
+get_template_part( 'blocks-render/render-section-container', null, $block_args );

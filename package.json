@@ -2,8 +2,8 @@
   "name": "albert-theme",
   "private": true,
   "scripts": {
-    "build:css": "tailwindcss -i ./resources/css/app.css -o ./assets/build/tailwind.css --minify",
-    "watch:css": "tailwindcss -i ./resources/css/app.css -o ./assets/build/tailwind.css --minify --watch"
+    "build:css": "node ./node_modules/tailwindcss/lib/cli.js -i ./resources/css/app.css -o ./assets/build/tailwind.css --minify",
+    "watch:css": "node ./node_modules/tailwindcss/lib/cli.js -i ./resources/css/app.css -o ./assets/build/tailwind.css --minify --watch"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
