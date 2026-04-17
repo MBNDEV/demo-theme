@@ -1,13 +1,32 @@
 <?php
 /**
- * Per-block JS: register handles and enqueue only when the block appears in content.
- * Block CSS is bundled via Tailwind (`assets/build/tailwind.css`; see resources/css/app.css).
+ * Per-block front assets: register handles, enqueue only when the block appears in the main post.
+ * Optional `block.css` under each `block-assets/block-assets-{name}/` is inlined; scripts use defer via script_loader_tag.
  *
  * @package CustomTheme
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
   exit;
+}
+
+/**
+ * Read a small theme file for inline CSS (block.css).
+ *
+ * @param string $path Absolute path.
+ * @return string
+ */
+function custom_theme_read_block_asset_file( string $path ): string {
+  if ( ! is_readable( $path ) ) {
+    return '';
+  }
+  // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Local theme file, not a remote URL.
+  $raw = file_get_contents( $path );
+  if ( false === $raw ) {
+    return '';
+  }
+
+  return $raw;
 }
 
 /**
@@ -80,11 +99,21 @@ function custom_theme_enqueue_block_assets_for_singular_content(): void {
     if ( ! is_subclass_of( $block_class, \CustomTheme\Blocks\Abstract_Block::class ) ) {
       continue;
     }
+    if ( ! wp_script_is( $block_class::get_script_handle(), 'registered' ) ) {
+      continue;
+    }
     if ( ! custom_theme_post_has_block_name( $block_class::get_wp_block_name() ) ) {
       continue;
     }
-    if ( wp_script_is( $block_class::get_script_handle(), 'registered' ) ) {
-      wp_enqueue_script( $block_class::get_script_handle() );
+    wp_enqueue_script( $block_class::get_script_handle() );
+    $style_handle = $block_class::get_style_handle();
+    if ( '' === $style_handle || ! wp_style_is( $style_handle, 'registered' ) ) {
+      continue;
+    }
+    wp_enqueue_style( $style_handle );
+    $css = $block_class::get_inline_style_css();
+    if ( '' !== $css ) {
+      wp_add_inline_style( $style_handle, $css );
     }
   }
 }
@@ -100,8 +129,18 @@ function custom_theme_enqueue_block_assets_for_editor(): void {
     if ( ! is_subclass_of( $block_class, \CustomTheme\Blocks\Abstract_Block::class ) ) {
       continue;
     }
-    if ( wp_script_is( $block_class::get_script_handle(), 'registered' ) ) {
-      wp_enqueue_script( $block_class::get_script_handle() );
+    if ( ! wp_script_is( $block_class::get_script_handle(), 'registered' ) ) {
+      continue;
+    }
+    wp_enqueue_script( $block_class::get_script_handle() );
+    $style_handle = $block_class::get_style_handle();
+    if ( '' === $style_handle || ! wp_style_is( $style_handle, 'registered' ) ) {
+      continue;
+    }
+    wp_enqueue_style( $style_handle );
+    $css = $block_class::get_inline_style_css();
+    if ( '' !== $css ) {
+      wp_add_inline_style( $style_handle, $css );
     }
   }
 }

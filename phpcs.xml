@@ -60,11 +60,22 @@
     <rule ref="Generic.Commenting.Todo"/>
     <rule ref="Generic.Commenting.Fixme"/>
 
+    <!-- Text domain string is defined once as CUSTOM_THEME_TEXT_DOMAIN in theme-constants.php. -->
+    <rule ref="WordPress.WP.I18n.NonSingularStringLiteralDomain">
+        <severity>0</severity>
+    </rule>
+
     <!-- Nested paths: plain vendor/* does not exclude vendor/pkg/file.php -->
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>*/node_modules/*</exclude-pattern>
     <exclude-pattern>*/build/*</exclude-pattern>
     <exclude-pattern>*/scripts/*</exclude-pattern>
+
+    <!-- Theme naming: Carbon container modules use containers-class-*.php -->
+    <rule ref="WordPress.Files.FileName.InvalidClassFileName">
+        <exclude-pattern>*/containers/containers-class-*.php</exclude-pattern>
+        <exclude-pattern>*/blocks/block-class-*.php</exclude-pattern>
+    </rule>
 
     <!-- CLI -->
     <arg value="p"/>

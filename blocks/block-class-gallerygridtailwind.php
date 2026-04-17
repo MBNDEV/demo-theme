@@ -21,12 +21,13 @@ final class GalleryGridTailwind extends Abstract_Block {
    * @return void
    */
   public static function register(): void {
-    Container::make( 'block', __( 'Gallery Grid Tailwind', 'custom-theme' ) )
+    Container::make( 'block', __( 'Gallery Grid', CUSTOM_THEME_TEXT_DOMAIN ) )
       ->set_icon( 'images-alt2' )
-      ->set_category( 'layout' )
+      ->set_category( CUSTOM_THEME_BLOCK_CATEGORY, custom_theme_get_theme_blocks_category_title() )
       ->set_render_callback( array( self::class, 'render' ) )
       ->add_fields(
         array_merge(
+          Abstract_Block::get_block_name_heading_field( __( 'Gallery Grid Tailwind Block', CUSTOM_THEME_TEXT_DOMAIN ), 'gallery_grid' ),
           self::get_field_definitions(),
           Abstract_Block::get_advanced_field_definitions()
         )
@@ -54,14 +55,10 @@ final class GalleryGridTailwind extends Abstract_Block {
    */
   private static function get_field_definitions(): array {
     return array(
-		Field::make( 'text', 'crb_gallery_grid_title', __( 'Title', 'custom-theme' ) )
-		  ->set_default_value( __( 'Gallery Grid', 'custom-theme' ) ),
-		Field::make( 'media_gallery', 'crb_gallery_grid_images', __( 'Images', 'custom-theme' ) )
+		Field::make( 'text', 'crb_gallery_grid_title', __( 'Title', CUSTOM_THEME_TEXT_DOMAIN ) )
+		  ->set_default_value( __( 'Gallery Grid', CUSTOM_THEME_TEXT_DOMAIN ) ),
+		Field::make( 'media_gallery', 'crb_gallery_grid_images', __( 'Images', CUSTOM_THEME_TEXT_DOMAIN ) )
 		  ->set_type( array( 'image' ) ),
-		Field::make( 'color', 'crb_gallery_grid_background_color', __( 'Background Color', 'custom-theme' ) )
-		  ->set_default_value( '#FFFFFF' ),
-		Field::make( 'color', 'crb_gallery_grid_text_color', __( 'Text Color', 'custom-theme' ) )
-		  ->set_default_value( '#111827' ),
     );
   }
 
@@ -89,10 +86,8 @@ final class GalleryGridTailwind extends Abstract_Block {
 
     return array_merge(
       array(
-		  'title'            => $fields['crb_gallery_grid_title'] ?? '',
-		  'image_ids'        => $image_ids,
-		  'background_color' => $fields['crb_gallery_grid_background_color'] ?? '',
-		  'text_color'       => $fields['crb_gallery_grid_text_color'] ?? '',
+		  'title'     => $fields['crb_gallery_grid_title'] ?? '',
+		  'image_ids' => $image_ids,
       ),
       Abstract_Block::map_advanced_fields_to_template_args( $fields )
     );
